@@ -1,0 +1,162 @@
+{
+  "name": "Extract-Info to prompt",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "87f202d1-9c13-46cb-9c13-eb5e7486a687",
+      "name": "When chat message received",
+      "webhookId": "c507dba7-0cf6-41d6-b040-5ab6a744287f"
+    },
+    {
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        288,
+        0
+      ],
+      "id": "38efa603-f2e8-4027-b5a2-ef1d07ba711d",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        352,
+        224
+      ],
+      "id": "1c49fae3-94a2-4c5b-9b4f-25b691071c2b",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"title\": \"DiagnosisProbability\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"conditions\": {\n      \"type\": \"array\",\n      \"minItems\": 1,\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"name\": { \"type\": \"string\", \"description\": \"Nome della condizione/malattia\" },\n          \"icd10\": { \"type\": \"string\", \"description\": \"Codice ICD-10 se noto\" },\n          \"probability_percent\": { \"type\": \"number\", \"minimum\": 0, \"maximum\": 100 },\n          \"rationale\": { \"type\": \"string\", \"description\": \"Breve motivazione clinica\" }\n        },\n        \"required\": [\"name\", \"probability_percent\"]\n      }\n    },\n    \"notes\": {\n      \"type\": \"string\",\n      \"description\": \"Assunzioni o limiti della valutazione\",\n      \"default\": \"\"\n    }\n  },\n  \"required\": [\"conditions\"]\n}\n",
+        "autoFix": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        480,
+        224
+      ],
+      "id": "daadf610-d349-4a0c-ae5f-4e7c6f49815e",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        224,
+        224
+      ],
+      "id": "b3e77e2c-6fa7-4d17-b49e-7705d71ee2e2",
+      "name": "Google Gemini Chat Model"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        560,
+        432
+      ],
+      "id": "bb08ee4d-e0c8-4a49-b214-8a5afb1a6231",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "seZ7EUoWLOwBgPFK",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Structured Output Parser",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "8512e5a9-b0c8-4d3d-8f25-01bc9c32de20",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3bf7ca4a274958dfccfece124b8bd9f77a72b3d0c10a1b8285ca0b823f61de1e"
+  },
+  "id": "o9QzPzcT1mUiiyNu",
+  "tags": []
+}
