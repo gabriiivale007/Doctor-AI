@@ -1,6 +1,6 @@
 # 🩺 Doctor-AI (n8n Workflow)
 
-**Doctor-AI** è un workflow per [n8n](https://n8n.io/) che utilizza **Google Gemini** come modello di intelligenza artificiale per analizzare sintomi descritti in linguaggio naturale e restituire un output strutturato con possibili condizioni diagnostiche e note esplicative.  
+**Doctor-AI** è un workflow per n8n che utilizza **Google Gemini** come modello di intelligenza artificiale per analizzare sintomi descritti in linguaggio naturale e restituire un output strutturato con possibili condizioni diagnostiche e note esplicative.  
 
 ⚠️ **Avvertenza**: Questo workflow è a scopo **dimostrativo ed educativo**.  
 Non sostituisce il parere di un medico o di un professionista sanitario qualificato.
