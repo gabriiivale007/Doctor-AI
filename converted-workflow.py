@@ -1,6 +1,6 @@
 import json
 from typing import Any
-
+from jsontoinput import converter
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
@@ -200,6 +200,6 @@ async def run(request: Request):
 if __name__ == "__main__":
     # Esecuzione locale semplice, utile per il debug
     print("Running workflow...")
-    result = run_workflow({})
+    result = run_workflow(converter())
     print("Done. Result:")
     print(json.dumps(result, indent=2, ensure_ascii=False))

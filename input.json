@@ -1,0 +1,12 @@
+{
+    "patient": {
+        "id": "P12345",
+        "age": 45,
+        "sex": "female",
+        "medical_history": "Non fumatrice; nessuna comorbilità nota"
+    },
+    "message": "Buongiorno, ho febbre 38.5°C da 2 giorni, mal di testa, tosse secca e affaticamento. Nessuna eruzione cutanea. Ho viaggiato all'estero 10 giorni fa.",
+    "max_differential_diagnoses": 3,
+    "notes": "Si prega di restituire l'output usando lo schema DiagnosisProbability con campo 'conditions' contenente name, icd10 (se noto), probability_percent e rationale.",
+    "schema": "DiagnosisProbability"
+}
